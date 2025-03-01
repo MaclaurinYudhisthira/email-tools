@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 from api.email import generate_otp, send_otp_email
 from api.verify import process_file, validate_email
@@ -28,6 +29,15 @@ def get_db():
     finally:
         db.close()
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"],
+)
 
 @app.post("/signup/")
 def signup(signup_data: UserCreate, db: Session = Depends(get_db)):
