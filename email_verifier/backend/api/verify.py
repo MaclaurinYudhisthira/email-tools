@@ -1,8 +1,10 @@
-import re
-import dns.resolver
-import smtplib
-import pandas as pd
 import os
+import re
+import smtplib
+
+import dns.resolver
+import pandas as pd
+
 from utils.constant import PROCESSED_FOLDER
 
 

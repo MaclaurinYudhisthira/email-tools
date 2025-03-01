@@ -1,17 +1,17 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi import FastAPI, Depends, HTTPException
+import os
+
+import uvicorn
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
-import uvicorn
-from api.verify import validate_email, process_file
-from api.email import generate_otp, send_otp_email
-from utils.constant import PROCESSED_FOLDER, UPLOAD_FOLDER
-import os
-from database.database import Base, SessionLocal, engine
-from utils.auth import hash_password, verify_password, create_jwt_token, verify_token
-from database.user import User
-from serializer.login import UserLogin, UserCreate, OTPVerify
 
+from api.email import generate_otp, send_otp_email
+from api.verify import process_file, validate_email
+from database.database import Base, SessionLocal, engine
+from database.user import User
+from serializer.login import OTPVerify, UserCreate, UserLogin
+from utils.auth import create_jwt_token, hash_password, verify_password, verify_token
+from utils.constant import PROCESSED_FOLDER, UPLOAD_FOLDER
 
 app = FastAPI()
 
@@ -60,7 +60,7 @@ def verify_otp(opt_data: OTPVerify, db: Session = Depends(get_db)):
 
 @app.post("/login/")
 def login(login_data: UserLogin, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == login_data.username).first()
+    user = db.query(User).filter(User.email == login_data.email).first()
     if not user or not verify_password(login_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid email or password")
 

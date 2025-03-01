@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pandas
+openpyxl
+dnspython
+pyjwt
+passlib
+python-dotenv
+databases
+pydantic
+prettytable

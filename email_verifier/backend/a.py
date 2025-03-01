@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 l = [
     "prakash.kalel@gm.com",
     "ananda.raja@gknautomotive.com",
