@@ -3,7 +3,7 @@ import re
 import smtplib
 
 import dns.resolver
-import pandas as pd
+import pandas as pd 
 
 from utils.constant import PROCESSED_FOLDER
 
@@ -82,10 +82,10 @@ def validate_email(email):
         return "Invalid - No MX records"
     print(f"MX records found: {mx_records}")
 
-    # Step 4: Check SMTP server and email deliverability
-    is_deliverable = check_smtp_server(mx_records, email)
-    if not is_deliverable:
-        return "Invalid - Email not deliverable"
+    # # Step 4: Check SMTP server and email deliverability
+    # is_deliverable = check_smtp_server(mx_records, email)
+    # if not is_deliverable:
+    #     return "Invalid - Email not deliverable"
 
     # Step 5: Classification
     classification = classify_email(email, domain, mx_records)
@@ -113,4 +113,4 @@ def process_file(file_path: str) -> str:
     else:
         df.to_excel(processed_file_path, index=False)
 
-    return processed_filename
+    return os.path.abspath(processed_file_path), processed_filename

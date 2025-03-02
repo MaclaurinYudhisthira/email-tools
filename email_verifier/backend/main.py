@@ -100,10 +100,9 @@ async def upload_file(file: UploadFile = File(...)):
         f.write(await file.read())
 
     # Process the file
-    processed_file_path = process_file(file_path)
-
-    return {"message": "File processed successfully", "processed_file": processed_file_path}
-
+    file_location,file_name = process_file(file_path)
+    if file_location and file_name:
+        return FileResponse(file_location, media_type='application/octet-stream', filename=file_name)
 
 @app.get("/download/{filename}")
 async def download_file(filename: str):

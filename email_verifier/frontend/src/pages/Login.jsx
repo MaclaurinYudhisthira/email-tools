@@ -27,7 +27,7 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div>
+    <div className="coolinput">
       <h2 className="text-xl font-bold">Login</h2>
       <form onSubmit={handleLogin} className="flex flex-col space-y-4">
         <input 
@@ -35,7 +35,7 @@ function Login({ onLoginSuccess }) {
           placeholder="Email" 
           value={email} 
           onChange={(e) => setEmail(e.target.value)} 
-          className="p-2 border rounded" 
+          className="p-2 border rounded input" 
           required 
         />
         <input 
@@ -43,7 +43,7 @@ function Login({ onLoginSuccess }) {
           placeholder="Password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
-          className="p-2 border rounded" 
+          className="p-2 border rounded input" 
           required 
         />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">

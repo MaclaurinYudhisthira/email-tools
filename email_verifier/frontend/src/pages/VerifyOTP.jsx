@@ -18,10 +18,10 @@ export default function VerifyOTP() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen coolinput">
       <h2 className="text-xl font-bold">Verify OTP</h2>
       <form onSubmit={handleVerify} className="flex flex-col gap-4">
-        <input type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} required className="border p-2" />
+        <input type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} required className="border p-2 input" />
         <button type="submit" className="bg-blue-500 text-white p-2">Verify</button>
       </form>
     </div>

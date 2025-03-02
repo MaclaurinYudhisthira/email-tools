@@ -19,12 +19,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen coolinput">
       <h2 className="text-xl font-bold">Sign Up</h2>
       <form onSubmit={handleSignup} className="flex flex-col gap-4">
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="border p-2" />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="border p-2" />
-        <button type="submit" className="bg-blue-500 text-white p-2">Sign Up</button>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="border p-2  input" />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="border p-2 input" />
+        <button type="submit" className="bg-blue-500 text-white p-2 input">Sign Up</button>
       </form>
     </div>
   );
