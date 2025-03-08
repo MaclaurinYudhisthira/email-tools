@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Upload() {
   const [file, setFile] = useState(null);
@@ -39,10 +41,14 @@ export default function Upload() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen coolinput">
-      <h2 className="text-xl font-bold">Upload CSV/XLSX</h2>
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} className="border p-2 input" />
-      <button onClick={handleUpload} className="bg-blue-500 text-white p-2 mt-2">Upload</button>
-    </div>
+    <>
+      <Header />
+      <div className="flex flex-col items-center justify-center min-h-screen coolinput" style={{ width: "100%", textAlign: "center", padding: "200px" }}  >
+        <h2 className="text-xl font-bold">Upload CSV/XLSX</h2>
+        <input type="file" onChange={(e) => setFile(e.target.files[0])} className="border p-2 input" />
+        <button onClick={handleUpload} className="bg-blue-500 text-white p-2 mt-2">Upload</button>
+      </div>
+      <Footer />
+    </>
   );
 }
