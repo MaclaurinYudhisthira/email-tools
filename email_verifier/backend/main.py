@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, Form
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.email import generate_otp, send_otp_email
@@ -112,14 +113,16 @@ async def upload_file(file: UploadFile = File(...),email: str = Form(...),db: Se
     #     return FileResponse(file_location, media_type='application/octet-stream', filename=file_name)
     return {**object_to_dict(new_processed_file)}
     
-@app.get("/download/{filename}")
-async def download_file(filename: str):
-    file_path = os.path.join(PROCESSED_FOLDER, filename)
-    return FileResponse(file_path, media_type="application/octet-stream", filename=filename)
+@app.get("/download")
+async def download_file(file_id: str,db: Session = Depends(get_db)):
+    file_ob = db.query(ProcessedFile).filter(ProcessedFile.id == file_id).first()
+    raw_file_name = file_ob.result_file_name
+    raw_file_path = os.path.join(PROCESSED_FOLDER, raw_file_name)
+    return FileResponse(raw_file_path, media_type="application/octet-stream", filename=raw_file_name)
 
 @app.get("/result_files")
 async def get_result_files(email:str,db: Session = Depends(get_db)):
-    files = db.query(ProcessedFile).filter(ProcessedFile.user_email == email).all()
+    files = db.query(ProcessedFile).filter(ProcessedFile.user_email == email).order_by(desc(ProcessedFile.created_at)).all()
     return files
 
 
