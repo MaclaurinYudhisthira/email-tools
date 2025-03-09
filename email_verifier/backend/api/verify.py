@@ -3,9 +3,9 @@ import re
 import smtplib
 
 import dns.resolver
-import pandas as pd 
-from utils.tools import generate_unique_string
+import pandas as pd
 from utils.constant import PROCESSED_FOLDER
+from utils.tools import generate_unique_string
 
 
 def validate_email_format(email):

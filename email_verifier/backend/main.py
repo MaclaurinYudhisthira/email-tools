@@ -1,17 +1,16 @@
 import os
 
 import uvicorn
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, Form
-from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session
-from sqlalchemy import desc
-from fastapi.middleware.cors import CORSMiddleware
-
 from api.email import generate_otp, send_otp_email
 from api.verify import process_file, validate_email
 from database.database import Base, SessionLocal, engine, object_to_dict
-from database.user import User, ProcessedFile
+from database.user import ProcessedFile, User
+from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from serializer.login import OTPVerify, UserCreate, UserLogin
+from sqlalchemy import desc
+from sqlalchemy.orm import Session
 from utils.auth import create_jwt_token, hash_password, verify_password, verify_token
 from utils.constant import PROCESSED_FOLDER, UPLOAD_FOLDER
 
@@ -40,6 +39,7 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
+
 @app.post("/signup/")
 def signup(signup_data: UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == signup_data.email).first()
@@ -49,12 +49,11 @@ def signup(signup_data: UserCreate, db: Session = Depends(get_db)):
     hashed_pw = hash_password(signup_data.password)
     otp = generate_otp()
     send_otp_email(signup_data.email, otp)
-    
+
     new_user = User(email=signup_data.email, hashed_password=hashed_pw, otp=otp)
     db.add(new_user)
     db.commit()
 
-    
     return {"message": "OTP sent to email. Please verify."}
 
 
@@ -79,7 +78,7 @@ def login(login_data: UserLogin, db: Session = Depends(get_db)):
     if not user.is_verified:
         raise HTTPException(status_code=400, detail="Email not verified")
 
-    token = create_jwt_token({"sub": user.email,"user_id":user.id})
+    token = create_jwt_token({"sub": user.email, "user_id": user.id})
     return {"access_token": token, "token_type": "bearer"}
 
 
@@ -94,8 +93,10 @@ async def validate_email_func(email: str):
 
 
 @app.post("/upload/", dependencies=[Depends(verify_token)])
-async def upload_file(file: UploadFile = File(...),email: str = Form(...),db: Session = Depends(get_db)):
-    raw_file_name=file.filename
+async def upload_file(
+    file: UploadFile = File(...), email: str = Form(...), db: Session = Depends(get_db)
+):
+    raw_file_name = file.filename
     raw_file_path = os.path.join(UPLOAD_FOLDER, raw_file_name)
 
     # Save the uploaded file
@@ -103,26 +104,37 @@ async def upload_file(file: UploadFile = File(...),email: str = Form(...),db: Se
         f.write(await file.read())
 
     # Process the file
-    res_file_path,res_file_name = process_file(raw_file_path)
+    res_file_path, res_file_name = process_file(raw_file_path)
 
-    new_processed_file = ProcessedFile(raw_file_name=raw_file_name,result_file_name=res_file_name,user_email=email)
+    new_processed_file = ProcessedFile(
+        raw_file_name=raw_file_name, result_file_name=res_file_name, user_email=email
+    )
     db.add(new_processed_file)
     db.commit()
 
     # if file_location and file_name:
     #     return FileResponse(file_location, media_type='application/octet-stream', filename=file_name)
     return {**object_to_dict(new_processed_file)}
-    
+
+
 @app.get("/download")
-async def download_file(file_id: str,db: Session = Depends(get_db)):
+async def download_file(file_id: str, db: Session = Depends(get_db)):
     file_ob = db.query(ProcessedFile).filter(ProcessedFile.id == file_id).first()
     raw_file_name = file_ob.result_file_name
     raw_file_path = os.path.join(PROCESSED_FOLDER, raw_file_name)
-    return FileResponse(raw_file_path, media_type="application/octet-stream", filename=raw_file_name)
+    return FileResponse(
+        raw_file_path, media_type="application/octet-stream", filename=raw_file_name
+    )
+
 
 @app.get("/result_files")
-async def get_result_files(email:str,db: Session = Depends(get_db)):
-    files = db.query(ProcessedFile).filter(ProcessedFile.user_email == email).order_by(desc(ProcessedFile.created_at)).all()
+async def get_result_files(email: str, db: Session = Depends(get_db)):
+    files = (
+        db.query(ProcessedFile)
+        .filter(ProcessedFile.user_email == email)
+        .order_by(desc(ProcessedFile.created_at))
+        .all()
+    )
     return files
 
 
