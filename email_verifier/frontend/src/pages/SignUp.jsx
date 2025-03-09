@@ -23,50 +23,44 @@ export default function Signup(isAuthenticated) {
   return (
     <>
       <Header />
-      <div className="coolinput mail_section" style={{ width: "100%", textAlign: "center", padding: "200px" }}>
-        <h1 className="text-xl font-bold" style={{ color: "white", fontSize: "30px" }}>Login</h1>
-        <form onSubmit={handleSignup} className="flex flex-col space-y-4" style={{ color: "#000" }}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border rounded input"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-2 border rounded input"
-            required
-          />
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
-            SignUp
-          </button>
-          <p className="mt-4 text-gray-600" style={{ fontSize: "20px" }}>
-            Already have an account? <a href="/login" className="text-blue-500 hover:underline" style={{}}>Login</a>
-          </p>
-        </form>
+      <div className="coolinput mail_section a_section" >
+        <div></div>
+        <div className="formdiv invisible-bg">
+          <h1 className="text-xl font-bold">SignUp</h1>
+          <form onSubmit={handleSignup}>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="p-2 border rounded input"
+                required
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="p-2 border rounded input"
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
+                SignUp
+              </button>
+            </div>
+            <div>
+              <p>
+                Already have an account? <a href="/login">Login</a>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-      <Footer />
     </>
   );
 }
-
-// (
-//   <>
-//     <Header isAuthenticated={isAuthenticated} />
-//     <div className="flex flex-col items-center justify-center min-h-screen coolinput">
-//       <h2 className="text-xl font-bold">Sign Up</h2>
-//       <form onSubmit={handleSignup} className="flex flex-col gap-4">
-//         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="border p-2  input" />
-//         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="border p-2 input" />
-//         <button type="submit" className="bg-blue-500 text-white p-2 input">Sign Up</button>
-//       </form>
-//     </div>
-//     <Footer />
-//   </>
-
-// );

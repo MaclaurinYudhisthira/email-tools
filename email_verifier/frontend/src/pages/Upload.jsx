@@ -3,7 +3,7 @@ import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-export default function Upload() {
+export default function Upload({ isAuthenticated,handleLogout }) {
   const [file, setFile] = useState(null);
 
   const handleUpload = async () => {
@@ -42,13 +42,23 @@ export default function Upload() {
 
   return (
     <>
-      <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen coolinput" style={{ width: "100%", textAlign: "center", padding: "200px" }}  >
-        <h2 className="text-xl font-bold">Upload CSV/XLSX</h2>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} className="border p-2 input" />
-        <button onClick={handleUpload} className="bg-blue-500 text-white p-2 mt-2">Upload</button>
+      <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+      <div className="coolinput mail_section a_section ">
+        <div>
+          <div className="formdiv invisible-bg">
+          <h1 className="text-xl font-bold">Result Files</h1>
+          </div>
+        </div>
+        <div className="formdiv invisible-bg">
+          <h1 className="text-xl font-bold">Upload CSV/XLSX</h1>
+          <div className="input-box">
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} className="border p-2 input" />
+          </div>
+          <div className="button">
+          <button onClick={handleUpload} className="bg-blue-500 text-white p-2 mt-2">Upload</button>
+          </div>
+        </div>
       </div>
-      <Footer />
     </>
   );
 }

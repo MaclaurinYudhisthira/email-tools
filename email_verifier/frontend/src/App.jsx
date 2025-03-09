@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Signup from "./pages/SignUp";
 import VerifyOTP from "./pages/VerifyOTP";
@@ -17,14 +17,19 @@ function App() {
     setIsAuthenticated(!!token);
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+  };
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/upload" /> : (<Login onLoginSuccess={() => setIsAuthenticated(true)} />)} />
+        <Route path="/" element={isAuthenticated ? <Navigate to="/upload" /> : (<Landing isAuthenticated={isAuthenticated}/>)} />
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/upload" /> : (<Login isAuthenticated={isAuthenticated} onLoginSuccess={() => setIsAuthenticated(true)} />)} />
         <Route path="/signup" element={isAuthenticated ? <Navigate to="/upload" /> : (<Signup isAuthenticated={isAuthenticated}/>)} />
-        <Route path="/upload" element={isAuthenticated ? <Upload /> : <Navigate to="/login" />} />
-        <Route path="/verify-otp" element={<VerifyOTP isAuthenticated={false}/>} />
+        <Route path="/upload" element={isAuthenticated ? <Upload isAuthenticated={isAuthenticated} handleLogout={handleLogout}/> : <Navigate to="/login" />} />
+        <Route path="/verify-otp" element={isAuthenticated ? <Upload isAuthenticated={isAuthenticated} handleLogout={handleLogout}/> : <VerifyOTP isAuthenticated={false}/>} />
       </Routes>
     </Router>
 

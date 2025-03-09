@@ -23,9 +23,11 @@ export default function VerifyOTP({ isAuthenticated }) {
     <>
 
       <Header />
-      <div className="coolinput mail_section" style={{ width: "100%", textAlign: "center", padding: "200px" }}>
-        <h1 className="text-xl font-bold" style={{ color: "white", fontSize: "30px" }}>Login</h1>
+      <div className="coolinput mail_section a_section">
+      <div className="formdiv">
+        <h1 className="text-xl font-bold">Verify OTP</h1>
         <form onSubmit={handleVerify} className="flex flex-col space-y-4" style={{ color: "#000" }}>
+          <div>
           <input
             type="text"
             placeholder="Enter OTP"
@@ -34,24 +36,15 @@ export default function VerifyOTP({ isAuthenticated }) {
             className="p-2 border rounded input"
             required
           />
+          </div>
+          <div>
           <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
             Submit
           </button>
+          </div>
         </form>
+        </div>
       </div>
-      <Footer />
     </>
   );
-
 }
-
-
-// return (
-//   <div className="flex flex-col items-center justify-center min-h-screen coolinput">
-//     <h2 className="text-xl font-bold">Verify OTP</h2>
-//     <form onSubmit={handleVerify} className="flex flex-col gap-4">
-//       <input type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} required className="border p-2 input" />
-//       <button type="submit" className="bg-blue-500 text-white p-2">Verify</button>
-//     </form>
-//   </div>
-// );

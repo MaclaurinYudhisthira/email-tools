@@ -14,7 +14,7 @@
 }
 
 .coolinput label.text {
-  font-size: 0.75rem;
+  /* font-size: 0.75rem; */
   color: #818CF8;
   font-weight: 700;
   position: relative;
@@ -66,3 +66,129 @@ button:active {
   box-shadow: inset 0px 0.1em 0.6em #3c4fe0;
   transform: translateY(0em);
 }
+
+.a_section{
+  padding: 200px;
+  text-align: center;
+  width: 100%;
+  background-image: url("public/images/bg-main.jpg");
+  background-attachment: fixed;
+  background-size: 80vw ;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-attachment: fixed;
+  color: black;
+  height: 93vh;
+  margin-bottom: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 20px; /* Space between columns */
+  width: 100%;
+}
+.invisible-bg{
+  box-shadow: 0px 0px 10px black;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  color: #000;
+  padding:20px;
+}
+.formdiv{
+  position: relative;
+  text-align: center;
+}
+.formdiv  input{
+  width: 70%;
+  margin: auto;
+}
+.formdiv button{
+  width: 30%;
+}
+.formdiv p{
+  font-size: 20px;
+}
+.formdiv a{
+  color: #3c4fe0;
+}
+.formdiv h1{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.navb{
+  margin-top: 0;
+  height: 8vh;
+}
+
+.title {
+  font-size: 40px;
+  text-align: center;
+}
+.form-container .input-box  {
+  position: relative ;
+  display: flex;
+  align-items: center;
+}
+.form-container .email {
+  margin-top: 30px;
+}
+.form-container .password {
+  margin-top: 20px;
+}
+.input-box input {
+  width: 100%;
+  outline: 0;
+  border: 2px solid #cecece;
+  border-radius: 50px;
+  padding: 8px 8px 8px 15px;
+  background: transparent;
+  color: #000;
+  font-size: 16px;
+}
+input::placeholder{
+  color: #000;
+}
+.input-box img {
+  position: absolute;
+  right: 25px;
+}
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.forgot a {
+  font-size: 15px;
+  color: #000;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.button button {
+  border: none;
+  background-color: #000;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 0;
+  outline: none;
+  width: 100%;
+}
+.button button:hover {
+  background-color: #cecece;
+}
+.register p {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+.register p a {
+  color: #fff;
+}
+.register p a:hover,
+.forgot a:hover {
+  color: blue;
+}
+

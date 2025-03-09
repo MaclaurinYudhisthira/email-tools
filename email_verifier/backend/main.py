@@ -47,12 +47,13 @@ def signup(signup_data: UserCreate, db: Session = Depends(get_db)):
 
     hashed_pw = hash_password(signup_data.password)
     otp = generate_otp()
-
+    send_otp_email(signup_data.email, otp)
+    
     new_user = User(email=signup_data.email, hashed_password=hashed_pw, otp=otp)
     db.add(new_user)
     db.commit()
 
-    send_otp_email(signup_data.email, otp)
+    
     return {"message": "OTP sent to email. Please verify."}
 
 

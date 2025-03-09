@@ -10,3 +10,4 @@ python-dotenv
 databases
 pydantic
 prettytable
+resend

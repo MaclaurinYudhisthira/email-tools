@@ -9,7 +9,7 @@ import "../css/jquery.mCustomScrollbar.min.css";
 import "../css/owl.carousel.min.css";
 import "../css/login.css";
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess, isAuthenticated }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -26,7 +26,9 @@ function Login({ onLoginSuccess }) {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem("token", data.token);
+
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("email",email);
       onLoginSuccess(); // Update authentication state
       navigate("/upload"); // Redirect to upload page
     } else {
@@ -36,37 +38,45 @@ function Login({ onLoginSuccess }) {
 
   return (
     <>
-
-      <Header />
-      <div className="coolinput mail_section" style={{ width: "100%", textAlign: "center", padding: "200px" }}>
-        <h1 className="text-xl font-bold" style={{ color: "white", fontSize: "30px" }}>Login</h1>
-        <form onSubmit={handleLogin} className="flex flex-col space-y-4" style={{ color: "#000" }}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border rounded input"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-2 border rounded input"
-            required
-          />
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
-            Login
-          </button>
-
-          <p className="mt-4 text-gray-600" style={{ fontSize: "20px" }}>
-            Don't have an account? <a href="/signup" className="text-blue-500 hover:underline" style={{}}>Sign Up</a>
-          </p>
-        </form>
+      <Header isAuthenticated={isAuthenticated}/>
+      <div className="coolinput mail_section a_section">
+        <div></div>
+        <div className="formdiv invisible-bg">
+          <h1 className="text-xl font-bold">Login</h1>
+          <form onSubmit={handleLogin} >
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="p-2 border rounded input"
+                required
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="p-2 border rounded input"
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
+                Login
+              </button>
+            </div>
+            <div>
+              <p >
+                Don't have an account? <a href="/signup">Sign Up</a>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-      <Footer />
     </>
   );
 }
