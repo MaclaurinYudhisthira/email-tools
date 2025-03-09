@@ -24,25 +24,25 @@ export default function VerifyOTP({ isAuthenticated }) {
 
       <Header />
       <div className="coolinput mail_section a_section">
-      <div className="formdiv">
-        <h1 className="text-xl font-bold">Verify OTP</h1>
-        <form onSubmit={handleVerify} className="flex flex-col space-y-4" style={{ color: "#000" }}>
-          <div>
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            className="p-2 border rounded input"
-            required
-          />
-          </div>
-          <div>
-          <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
-            Submit
-          </button>
-          </div>
-        </form>
+        <div className="formdiv invisible-bg">
+          <h1 className="text-xl font-bold">Verify OTP</h1>
+          <form onSubmit={handleVerify} className="flex flex-col space-y-4" style={{ color: "#000" }}>
+            <div>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                className="p-2 border rounded input"
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" className="bg-blue-500 text-white p-2 rounded" >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

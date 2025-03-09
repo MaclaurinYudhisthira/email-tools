@@ -28,7 +28,7 @@ function Login({ onLoginSuccess, isAuthenticated }) {
       const data = await response.json();
 
       localStorage.setItem("token", data.access_token);
-      localStorage.setItem("email",email);
+      localStorage.setItem("email", email);
       onLoginSuccess(); // Update authentication state
       navigate("/upload"); // Redirect to upload page
     } else {
@@ -38,7 +38,7 @@ function Login({ onLoginSuccess, isAuthenticated }) {
 
   return (
     <>
-      <Header isAuthenticated={isAuthenticated}/>
+      <Header isAuthenticated={isAuthenticated} />
       <div className="coolinput mail_section a_section">
         <div></div>
         <div className="formdiv invisible-bg">

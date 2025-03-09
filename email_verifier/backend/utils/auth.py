@@ -58,4 +58,5 @@ def verify_token(x_access_token: str = Header(None)):
         )
     except jwt.DecodeError:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token")
-    return dict(payload)
+    
+    return True

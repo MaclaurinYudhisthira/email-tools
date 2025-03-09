@@ -628,7 +628,7 @@ input.form-control::placeholder {
      padding: 40px 10px 0px 10px;
  }
 
- .copyright_section{
+.copyright_section{
     width: 100%;
     float: left;
     background-color: #fff;
@@ -641,4 +641,13 @@ input.form-control::placeholder {
 }
 .copyright a {
     color: #040404;
+}
+.col-2-auto-grid-between{
+     display: grid;
+     grid-template-columns: auto auto;
+     justify-content: space-between;
+     align-content: center;
+}
+.br-2{
+     border-radius: .5rem;
 }

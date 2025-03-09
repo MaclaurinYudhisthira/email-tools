@@ -4,7 +4,7 @@ import smtplib
 
 import dns.resolver
 import pandas as pd 
-
+from utils.tools import generate_unique_string
 from utils.constant import PROCESSED_FOLDER
 
 
@@ -104,7 +104,7 @@ def process_file(file_path: str) -> str:
     else:
         df["result"] = "No email column found"
 
-    processed_filename = "processed_" + os.path.basename(file_path)
+    processed_filename = f"processed_{generate_unique_string()}_" + os.path.basename(file_path)
     processed_file_path = os.path.join(PROCESSED_FOLDER, processed_filename)
 
     # Save processed file
